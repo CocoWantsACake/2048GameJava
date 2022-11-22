@@ -56,27 +56,15 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	private ImageTuile[][] grille; // tableau contenant toutes les tuiles graphiques
 	private Grille saGrille; // grille en version non graphique
 	private Partie saPartie;
-	private FrmAccueil saFrmAccueil; 
     private Boolean ispartie = false;
     private Boolean themeClair = true;
     private Timer timer; // permet les deplacements de l'algorithme d'automatisation
 	
-    // declaration des composants
-    private javax.swing.JButton btnMenu;
-    private javax.swing.JButton btnMode;
-    private javax.swing.JButton btnQuitter;
-    private javax.swing.JButton btnRejouer;
-    private javax.swing.JButton btnTheme;
-    private javax.swing.JPanel pnlGrille;
-    private javax.swing.JLabel lblScore;
-    private javax.swing.JLabel lblScore2;
-	
 	// Constructeurs
-    public FrmJeu(String nom, FrmAccueil frm, Grille grille) {
+    public FrmJeu(String nom, Grille grille) {
         initComponents();
         this.setName(nom);
         this.setTitle(nom);
-        this.saFrmAccueil = frm;
         this.saGrille = grille;
         setTheme("clair");
         this.creerTuiles();
@@ -89,11 +77,7 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
         this.setName(nom);
       }
     
-    //setters et getters
-    public void setSaFrmAccueil(FrmAccueil fA) {
-    	saFrmAccueil = fA;
-    }
-    
+    //setters and getters
     public void setIspartie(Boolean b) {
     	ispartie = b;
     }
@@ -118,189 +102,9 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
     	return timer;
     }
     
-    //changer le theme - couleurs
-    private void setTheme(String s) {
-    	Color fond;
-    	Color bouton;
-    	Color text;
-    	if (s == "clair") {
-    		fond = Color.LIGHT_GRAY;
-    		bouton = new Color(0x34495E);
-    		themeClair = true;
-    		text = Color.white;
-    	}
-    	else {
-    		fond = new Color(0x34495E);
-    		bouton = Color.LIGHT_GRAY;
-    		themeClair = false;
-    		text = Color.black;
-    	}
-    	this.getContentPane().setBackground(fond);
-    	pnlGrille.setBackground(bouton);
-    	btnMenu.setBackground(bouton);
-    	btnMenu.setForeground(text);
-    	btnMode.setBackground(bouton);
-    	btnMode.setForeground(text);
-    	btnRejouer.setBackground(bouton);
-    	btnRejouer.setForeground(text);
-    	btnTheme.setBackground(bouton);
-    	btnTheme.setForeground(text);
-    	lblScore.setForeground(bouton);
-    	lblScore2.setForeground(bouton);
-    }
-    
-    // autres methodes
-    private void initComponents() { // procedure appelee par le constructeur pour initialiser la form
-
-    	// initialisation de tous les composants 
-        btnRejouer = new javax.swing.JButton();
-        btnMode = new javax.swing.JButton();
-        btnTheme = new javax.swing.JButton();
-        lblScore = new javax.swing.JLabel();
-        lblScore2 = new javax.swing.JLabel();
-        btnQuitter = new javax.swing.JButton();
-        btnMenu = new javax.swing.JButton();
-        pnlGrille = new javax.swing.JPanel();
-
-        // defini l'operation qui permet la fermeture de l'application
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
-        // defini une taille pour la fenetre
-        setPreferredSize(new java.awt.Dimension(545, 415));
-        setResizable(false);
-        
-        // mise en forme des differents composants
-        btnRejouer.setText("Rejouer");
-        btnRejouer.setName("btnRejouer"); 
-
-        btnMode.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); 
-        btnMode.setText("Changer de mode");
-        btnMode.setToolTipText("");
-        btnMode.setName("btnMode"); 
-
-        btnTheme.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); 
-        btnTheme.setText("Changer le theme");
-        btnTheme.setName("btnTheme"); 
-
-        lblScore.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); 
-        lblScore.setText("Score :");
-        lblScore.setName("lblScore"); 
-
-        lblScore2.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); 
-        lblScore2.setText("0");
-        lblScore2.setName("lblScore2"); 
-
-        btnQuitter.setText("Quitter");
-        btnQuitter.setName("btnQuitter"); 
-        btnQuitter.setForeground(Color.white);
-        btnQuitter.setBackground(Color.red);
-
-        btnMenu.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); 
-        btnMenu.setText("Retourner au menu");
-        btnMenu.setName("btnMenu"); 
-        
-        // permet de ne jamais perdre le focus lors de l'appui sur une fleche
-        btnRejouer.addKeyListener(this);
-        btnMode.addKeyListener(this);
-        btnTheme.addKeyListener(this);
-        btnMenu.addKeyListener(this);
-        btnQuitter.addKeyListener(this);
-        
-        // ajout de listener sur les boutons 
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        
-        btnQuitter.addActionListener(new java.awt.event.ActionListener() {
-	        public void actionPerformed(java.awt.event.ActionEvent evt) {
-	            btnQuitterActionPerformed(evt);
-	        }
-        });
-        
-        btnRejouer.addActionListener(new java.awt.event.ActionListener() {
-	        public void actionPerformed(java.awt.event.ActionEvent evt) {
-					btnRejouerActionPerformed(evt);
-	        }
-        });
-        
-        btnMode.addActionListener(new java.awt.event.ActionListener() {
-	        public void actionPerformed(java.awt.event.ActionEvent evt) {
-					btnModeActionPerformed(evt);
-	        }
-        });
-        
-        btnTheme.addActionListener(new java.awt.event.ActionListener() {
-	        public void actionPerformed(java.awt.event.ActionEvent evt) {
-	            btnThemeActionPerformed(evt);
-	        }
-        });
-        
-        //Le code ci-dessous a ete genere automatiquement grace au concepteur d'interface Java NetBeans
-        javax.swing.GroupLayout pnlGrilleLayout = new javax.swing.GroupLayout(pnlGrille);
-        pnlGrille.setLayout(pnlGrilleLayout);
-        pnlGrilleLayout.setHorizontalGroup(
-        		pnlGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
-        );
-        pnlGrilleLayout.setVerticalGroup(
-        		pnlGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblScore)
-                            .addComponent(lblScore2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnQuitter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTheme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRejouer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(pnlGrille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-		layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRejouer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnMode)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTheme)
-                        .addGap(37, 37, 37)
-                        .addComponent(lblScore)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblScore2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMenu)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnQuitter))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                )
-        );
-
-        pack(); // fait partie de la classe mere, permet de laisser les elements de la form choisir leur taille.
-    }
-    
+    // Convert to a method that displays in CMD the tuiles
     // methode qui initialise toutes les tuiles graphiques
     private void creerTuiles() {
-    	pnlGrille.setLayout(new GridLayout(4, 4));
     	this.grille = new ImageTuile[TAILLE_GRILLE][TAILLE_GRILLE];
 		ImageTuile tuileTmp = new ImageTuile(); // creation d'une ImageTuile temporaire pour recuperer les images
     	
@@ -308,7 +112,7 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		for (int i = 0; i<TAILLE_GRILLE; i++) {
     		for (int j = 0; j<TAILLE_GRILLE; j++) {
     			ImageTuile tuile = new ImageTuile(new ImageIcon(tuileTmp.getListeTuile().get(0)));
-    			pnlGrille.add(tuile);
+    			//pnlGrille.add(tuile);
                 grille[i][j] = tuile;
     		}
     	}
