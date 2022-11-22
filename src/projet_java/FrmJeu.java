@@ -1,4 +1,4 @@
-package projet_tuteure;
+package projet_java;
 
 /* ####################################
  * ###   structure de la classe :   ###
@@ -308,7 +308,7 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		for (int i = 0; i<TAILLE_GRILLE; i++) {
     		for (int j = 0; j<TAILLE_GRILLE; j++) {
     			ImageTuile tuile = new ImageTuile(new ImageIcon(tuileTmp.getListeTuile().get(0)));
-                pnlGrille.add(tuile);
+    			pnlGrille.add(tuile);
                 grille[i][j] = tuile;
     		}
     	}

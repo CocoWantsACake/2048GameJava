@@ -1,4 +1,4 @@
-package projet_tuteure;
+package projet_java;
 
 public class Tuile {
 	

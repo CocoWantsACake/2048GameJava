@@ -1,4 +1,4 @@
-package projet_tuteure;
+package projet_java;
 
 /* ####################################
  * ###   structure de la classe :   ###
@@ -61,7 +61,7 @@ class ImageTuile extends JLabel { // clase permettant de definir une image pour 
 	// autres methodes
 	private void remplirListe() {
         String chemin;
-        String cheminAbsolu = "/images_tuiles/tuile_"; // permet de recuperer le chemin des ressources
+        String cheminAbsolu = "/projet_java/images_tuiles/tuile_"; // permet de recuperer le chemin des ressources
 
         final int NBMUL = 2; // pour multiplier par 2 le nombre present dans l'image
         int nbResul = 2;
