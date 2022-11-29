@@ -16,8 +16,7 @@ public class Main {
 		while(true) {
 			System.out.println("Give a direction such as haut, gauche, bas, droite.");
 			input = s.nextLine();
-			boolean res = p.getUserInterface().checkKey(input);
-			System.out.println("did it go good?" + res);
+			p.getUserInterface().checkKey(input);
 			if(p.getEstPerdue() || p.getEstGagnee()) {
 				break;
 			}

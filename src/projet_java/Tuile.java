@@ -5,7 +5,7 @@ public class Tuile {
 	private int positionI;
 	private int positionJ;
 	private int valeur;
-	private Grille saGrille;
+	private Grille grille;
 	private boolean estDeplacable = false;
 	int nbDeplacementsRestants = 1;
 
@@ -13,7 +13,7 @@ public class Tuile {
 		this.positionI = positionI;
 		this.positionJ = positionJ;
 		this.valeur = valeur;
-		this.saGrille = g;
+		this.grille = g;
 	}
 	
 	public void setPositionI(int positionI) {
@@ -48,153 +48,95 @@ public class Tuile {
 		return estDeplacable;
 	}
 	
-	public void setEstDeplacable(String direction) {
-		switch (direction) {
-		
-		case "gauche" : 
-			if (! estAuBord(direction)) {
-				int val = saGrille.getTuile(positionI, positionJ - 1).getValeur();
-				
-				if (this.valeur != 0) {
-					if (val == this.valeur && nbDeplacementsRestants != 0) {
-						estDeplacable = true;	
-					} else if (val == 0) {
-						estDeplacable = true;
-					} else {
-						estDeplacable = false;
-					}
+	public void checkIfDeplacable(int positionI_OK, int positionJ_OK, String direction) {
+		if (! estAuBord(direction)) {
+			int val = grille.getTuile(positionI_OK, positionJ_OK).getValeur();
+			
+			if (this.valeur != 0) {
+				if (val == this.valeur && nbDeplacementsRestants != 0) {
+					estDeplacable = true;	
+				} else if (val == 0) {
+					estDeplacable = true;
 				} else {
 					estDeplacable = false;
 				}
+			} else {
+				estDeplacable = false;
 			}
-		break;
-		
-		case "droite" :
-			if (! estAuBord(direction)) { 
-				int val = saGrille.getTuile(positionI, positionJ + 1).getValeur();
-				
-				if (this.valeur != 0) {
-					if (val == this.valeur && nbDeplacementsRestants != 0) {
-						estDeplacable = true;
-					} else if (val == 0) {
-						estDeplacable = true;
-					} else { 
-						estDeplacable = false;
-					}
-				} else {
-					estDeplacable = false;
-				}
-			}
-		break;
-		
-		case "haut" :
-			if (! estAuBord(direction)) {
-				int val = saGrille.getTuile(positionI - 1, positionJ).getValeur();
-				
-				if (this.valeur != 0) {
-					if (val == this.valeur && nbDeplacementsRestants != 0) {
-						estDeplacable = true;
-					} else if (val == 0) {
-						estDeplacable = true;
-					} else {
-						estDeplacable = false;
-					}
-				}
-				else {
-					estDeplacable = false;
-				}
-			}				
-		break;
-		
-		case "bas" : 
-			if (! estAuBord(direction)) {
-				int val = saGrille.getTuile(positionI + 1, positionJ).getValeur();
-				
-				if (this.valeur != 0) {
-					if (val == this.valeur && nbDeplacementsRestants != 0) {
-						estDeplacable = true;
-					} else if (val == 0) {
-						estDeplacable = true;
-					} else {
-						estDeplacable = false;
-					}
-				} else {
-					estDeplacable = false;
-				}
-			}				
-		break;
 		}
 	}
-
-	public void deplacer(String direction) {
+	
+	public void setEstDeplacable(String direction) {
+		int positionI_OK, positionJ_OK;
 		switch (direction) {
 			case "gauche" : 
-				if (! estAuBord(direction)) {
-					int val = saGrille.getTuile(positionI, positionJ - 1).getValeur();
-					
-					if (val == 0) {
-						saGrille.getTuile(positionI, positionJ - 1).setValeur(valeur);
-						this.setValeur(0);
-					} else if (val == this.valeur && nbDeplacementsRestants != 0) {
-						int score = val + val;
-						saGrille.getTuile(positionI, positionJ - 1).setValeur(score);
-						this.setValeur(0);
-						nbDeplacementsRestants = 0;
-						saGrille.getSaPartie().augmenterScore(score);
-					}
-				}
+				positionI_OK = positionI;
+				positionJ_OK = positionJ - 1;
+				checkIfDeplacable(positionI_OK, positionJ_OK, direction);
 				break;
 			
 			case "droite" :
-				if (! estAuBord(direction)) {
-					int val = saGrille.getTuile(positionI, positionJ + 1).getValeur();
-					
-					if (val == 0) {
-						saGrille.getTuile(positionI, positionJ + 1).setValeur(valeur);
-						this.setValeur(0);
-					} else if (val == this.valeur && nbDeplacementsRestants != 0) {
-						int score = val + val;
-						saGrille.getTuile(positionI, positionJ + 1).setValeur(score);
-						this.setValeur(0);
-						nbDeplacementsRestants = 0;
-						saGrille.getSaPartie().augmenterScore(score);
-					}
-				}
-			break;
+				positionI_OK = positionI;
+				positionJ_OK = positionJ + 1;
+				checkIfDeplacable(positionI_OK, positionJ_OK, direction);
+				break;
 			
 			case "haut" :
-				if (! estAuBord(direction)) {
-					int val = saGrille.getTuile(positionI -1, positionJ).getValeur();
-					
-					if (val == 0) {
-						saGrille.getTuile(positionI -1, positionJ).setValeur(valeur);
-						this.setValeur(0);
-					} else if (val == this.valeur && nbDeplacementsRestants != 0) {
-						int score = val + val;
-						saGrille.getTuile(positionI -1, positionJ).setValeur(score);
-						this.setValeur(0);
-						nbDeplacementsRestants = 0;
-						saGrille.getSaPartie().augmenterScore(score);
-					}	
-				}				
-			break;
+				positionI_OK = positionI - 1;
+				positionJ_OK = positionJ;			
+				checkIfDeplacable(positionI_OK, positionJ_OK, direction);
+				break;
 			
 			case "bas" : 
-				if (! estAuBord(direction)) {
-					int val = saGrille.getTuile(positionI +1, positionJ).getValeur();
-					
-					if (val == 0) {
-						saGrille.getTuile(positionI+1, positionJ).setValeur(valeur);
-						this.setValeur(0);
-					} else if (val == this.valeur && nbDeplacementsRestants != 0) {
-						int score = val + val;
-						saGrille.getTuile(positionI+1, positionJ).setValeur(score);
-						this.setValeur(0);
-						nbDeplacementsRestants = 0;
-						saGrille.getSaPartie().augmenterScore(score);
-					}
-				}				
-			break;
+				positionI_OK = positionI + 1;
+				positionJ_OK = positionJ;			
+				checkIfDeplacable(positionI_OK, positionJ_OK, direction);
+				break;
+		}
+	}
+
+	public void doDeplacement(int positionI_OK, int positionJ_OK, String direction) {
+		if (!estAuBord(direction)) {
+			int val = grille.getTuile(positionI_OK, positionJ_OK).getValeur();
+			
+			if (val == 0) {
+				grille.getTuile(positionI_OK, positionJ_OK).setValeur(valeur);
+				this.setValeur(0);
+			} else if (val == this.valeur && nbDeplacementsRestants != 0) {
+				grille.getTuile(positionI_OK, positionJ_OK).setValeur(val+val);
+				this.setValeur(0);
+				nbDeplacementsRestants = 0;
+				grille.getSaPartie().augmenterScore(val+val);
+			}
+		}
+	}
+	
+	public void deplacer(String direction) {
+		int positionI_OK, positionJ_OK;
+		switch (direction) {
+			case "gauche" : 
+				positionI_OK = positionI;
+				positionJ_OK = positionJ - 1;
+				doDeplacement(positionI_OK, positionJ_OK, direction);
+				break;
+			
+			case "droite" :
+				positionI_OK = positionI;
+				positionJ_OK = positionJ + 1;
+				doDeplacement(positionI_OK, positionJ_OK, direction);
+				break;
+			
+			case "haut" :
+				positionI_OK = positionI - 1;
+				positionJ_OK = positionJ;
+				doDeplacement(positionI_OK, positionJ_OK, direction);		
+				break;
+			
+			case "bas" : 
+				positionI_OK = positionI + 1;
+				positionJ_OK = positionJ;
+				doDeplacement(positionI_OK, positionJ_OK, direction);		
+				break;
 		}
 	}
 	
@@ -204,13 +146,13 @@ public class Tuile {
 				return positionJ == 0;
 			
 			case "droite" :
-				return positionJ == saGrille.getTaille() - 1;
+				return positionJ == grille.getTaille() - 1;
 			
 			case "haut" :
 				return positionI == 0;
 			
 			case "bas" : 
-				return positionI == saGrille.getTaille() - 1;
+				return positionI == grille.getTaille() - 1;
 				
 			default:
 				return false;
@@ -220,5 +162,6 @@ public class Tuile {
 	public String toString() {
 		return "" + this.valeur;
 	}
+
 }
 
