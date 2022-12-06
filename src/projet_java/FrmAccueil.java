@@ -103,7 +103,7 @@ public class FrmAccueil extends javax.swing.JFrame {
 						.addGap(68, 68, 68).addGap(62, 62, 62).addComponent(btnpartie)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
 						.addComponent(btnQuitter).addGap(38, 38, 38)));
-		pack(); // fait partie de la classe mere
+		pack();
 	}
 
 	private void btnQuitterActionPerformed(java.awt.event.ActionEvent evt) {

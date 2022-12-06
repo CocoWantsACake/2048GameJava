@@ -1,8 +1,6 @@
 package projet_java;
 
 public class Tuile {
-
-	// attributs
 	private int positionI; // coordonnee x d'un objet
 	private int positionJ; // coordonnee y d'un objet
 	private int valeur; // valeur associee a la tuile
@@ -10,7 +8,6 @@ public class Tuile {
 	private boolean estDeplacable = false; // quand true, peut etre deplacee dans la grille
 	int nbDeplacementsRestants = 1; // permet de ne pas additionner plusieurs fois une tuile
 
-	// constructeur
 	public Tuile(int positionI, int positionJ, int valeur, Grille g) {
 		this.positionI = positionI;
 		this.positionJ = positionJ;
@@ -18,41 +15,7 @@ public class Tuile {
 		this.grille = g;
 	}
 
-	// getters et setters
-	public void setPositionI(int positionI) {
-		this.positionI = positionI;
-	}
-
-	public int getPositionI() {
-		return positionI;
-	}
-
-	public void setPositionJ(int positionJ) {
-		this.positionJ = positionJ;
-	}
-
-	public int getPositionJ() {
-		return positionJ;
-	}
-
-	public void setValeur(int valeur) {
-		this.valeur = valeur;
-	}
-
-	public int getValeur() {
-		return valeur;
-	}
-
-	public void setNbDeplacementsRestants(int i) {
-		nbDeplacementsRestants = i;
-	}
-
-	public boolean getEstDeplacable() {
-		return estDeplacable;
-	}
-
 	public void checkIfDeplacable(int positionI_OK, int positionJ_OK, String direction) {
-		System.out.println("check if deplacable " + direction);
 		if (!estAuBord(direction)) {
 			int val = grille.getTuile(positionI_OK, positionJ_OK).getValeur();
 
@@ -66,6 +29,24 @@ public class Tuile {
 				}
 			} else {
 				estDeplacable = false;
+			}
+		} else {
+			estDeplacable = false;
+		}
+	}
+
+	public void doDeplacement(int positionI_OK, int positionJ_OK, String direction) {
+		if (!estAuBord(direction)) {
+			int val = grille.getTuile(positionI_OK, positionJ_OK).getValeur();
+
+			if (val == 0) {
+				grille.getTuile(positionI_OK, positionJ_OK).setValeur(valeur);
+				this.setValeur(0);
+			} else if (val == this.valeur && nbDeplacementsRestants != 0) {
+				grille.getTuile(positionI_OK, positionJ_OK).setValeur(val + val);
+				this.setValeur(0);
+				nbDeplacementsRestants = 0;
+				grille.getSaPartie().augmenterScore(val + val);
 			}
 		}
 	}
@@ -99,22 +80,6 @@ public class Tuile {
 		}
 	}
 
-	public void doDeplacement(int positionI_OK, int positionJ_OK, String direction) {
-		if (!estAuBord(direction)) {
-			int val = grille.getTuile(positionI_OK, positionJ_OK).getValeur();
-
-			if (val == 0) {
-				grille.getTuile(positionI_OK, positionJ_OK).setValeur(valeur);
-				this.setValeur(0);
-			} else if (val == this.valeur && nbDeplacementsRestants != 0) {
-				grille.getTuile(positionI_OK, positionJ_OK).setValeur(val + val);
-				this.setValeur(0);
-				nbDeplacementsRestants = 0;
-				grille.getSaPartie().augmenterScore(val + val);
-			}
-		}
-	}
-
 	public void deplacer(String direction) {
 		int positionI_OK, positionJ_OK;
 		switch (direction) {
@@ -144,7 +109,6 @@ public class Tuile {
 		}
 	}
 
-	// fonction qui verifie que la tuile n'est pas au bord
 	public boolean estAuBord(String direction) {
 		boolean retour = false;
 
@@ -168,4 +132,40 @@ public class Tuile {
 		return retour;
 	}
 
+	@Override
+	public String toString() {
+		return "" + valeur;
+	}
+
+	public void setPositionI(int positionI) {
+		this.positionI = positionI;
+	}
+
+	public int getPositionI() {
+		return positionI;
+	}
+
+	public void setPositionJ(int positionJ) {
+		this.positionJ = positionJ;
+	}
+
+	public int getPositionJ() {
+		return positionJ;
+	}
+
+	public void setValeur(int valeur) {
+		this.valeur = valeur;
+	}
+
+	public int getValeur() {
+		return valeur;
+	}
+
+	public void setNbDeplacementsRestants(int i) {
+		nbDeplacementsRestants = i;
+	}
+
+	public boolean getEstDeplacable() {
+		return estDeplacable;
+	}
 }

@@ -11,8 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionListener {
-
-	// declaration des attributs
 	private static final long serialVersionUID = 1L; // oblige car la classe extends javax.swing.JFrame
 
 	private static final int TAILLE_GRILLE = 4;
@@ -45,26 +43,6 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	public FrmJeu(String nom) {
 		initComponents();
 		this.setName(nom);
-	}
-
-	public void setSaFrmAccueil(FrmAccueil fA) {
-		saFrmAccueil = fA;
-	}
-
-	public void setIspartie(Boolean b) {
-		ispartie = b;
-	}
-
-	public boolean getIspartie() {
-		return ispartie;
-	}
-
-	public Partie getSaPartie() {
-		return saPartie;
-	}
-
-	public Grille getSaGrille() {
-		return saGrille;
 	}
 
 	private void setTheme(String s) {
@@ -268,7 +246,6 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 			saFrmAccueil.setVisible(true);
 			setVisible(false);
 		}
-		System.out.println("heereeeee " + cont);
 		cont++;
 		this.mettreAJour();
 	}
@@ -317,21 +294,13 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	public void keyPressed(KeyEvent e) {
 		if (ispartie) {
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("before down");
 				saGrille.deplacerTuiles("bas");
-				System.out.println("after");
 			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-				System.out.println("before up");
 				saGrille.deplacerTuiles("haut");
-				System.out.println("after");
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				System.out.println("before left");
 				saGrille.deplacerTuiles("gauche");
-				System.out.println("after");
 			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				System.out.println("before right");
 				saGrille.deplacerTuiles("droite");
-				System.out.println("after");
 			}
 			this.ajoutDeuxHasard();
 		}
@@ -349,4 +318,23 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	public void actionPerformed(ActionEvent e) {
 	}
 
+	public void setSaFrmAccueil(FrmAccueil fA) {
+		saFrmAccueil = fA;
+	}
+
+	public void setIspartie(Boolean b) {
+		ispartie = b;
+	}
+
+	public boolean getIspartie() {
+		return ispartie;
+	}
+
+	public Partie getSaPartie() {
+		return saPartie;
+	}
+
+	public Grille getSaGrille() {
+		return saGrille;
+	}
 }

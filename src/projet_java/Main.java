@@ -1,9 +1,7 @@
 package projet_java;
 
 public class Main {
-
 	public static void main(String[] args) {
-
 		Partie p = new Partie();
 		Grille g = new Grille(4);
 		g.setSaPartie(p);
@@ -18,6 +16,5 @@ public class Main {
 
 		g.setSaForme(fenetreJ);
 		p.setSaForme(fenetreJ);
-
 	}
 }
