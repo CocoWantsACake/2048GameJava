@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionListener {
 
@@ -23,9 +22,7 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	private FrmAccueil saFrmAccueil;
 	private Boolean ispartie = false;
 	private Boolean themeClair = true;
-	private Timer timer; // permet les deplacements de l'algorithme d'automatisation
 
-	// declaration des composants
 	private javax.swing.JButton btnMenu;
 	private javax.swing.JButton btnQuitter;
 	private javax.swing.JButton btnRejouer;
@@ -34,7 +31,6 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	private javax.swing.JLabel lblScore;
 	private javax.swing.JLabel lblScore2;
 
-	// Constructeurs
 	public FrmJeu(String nom, FrmAccueil frm, Grille grille) {
 		initComponents();
 		this.setName(nom);
@@ -44,7 +40,6 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		setTheme("clair");
 		this.creerTuiles();
 		this.saPartie = saGrille.getSaPartie();
-		this.timer = new Timer(1000, this);
 	}
 
 	public FrmJeu(String nom) {
@@ -52,7 +47,6 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		this.setName(nom);
 	}
 
-	// setters et getters
 	public void setSaFrmAccueil(FrmAccueil fA) {
 		saFrmAccueil = fA;
 	}
@@ -73,15 +67,6 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		return saGrille;
 	}
 
-	public void setTimer(Timer timer) {
-		this.timer = timer;
-	}
-
-	public Timer getTimer() {
-		return timer;
-	}
-
-	// changer le theme - couleurs
 	private void setTheme(String s) {
 		Color fond;
 		Color bouton;
@@ -261,6 +246,8 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		}
 	}
 
+	static int cont = 0;
+
 	public void ajoutDeuxHasard() {
 		if (!saGrille.ajoutDeuxHasard()) {
 			if (saPartie.getEstGagnee()) {
@@ -280,13 +267,13 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 			saPartie.setScoreCourant(0);
 			saFrmAccueil.setVisible(true);
 			setVisible(false);
-			timer.stop();
 		}
+		System.out.println("heereeeee " + cont);
+		cont++;
 		this.mettreAJour();
 	}
 
 	private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {
-		timer.stop();
 		if (javax.swing.JOptionPane.showConfirmDialog(null,
 				"Etes-vous sur de vouloir revenir au menu ? \nLa progression de la partie en cours sera perdue.",
 				"Retour au menu", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -297,38 +284,25 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 			}
 			saFrmAccueil.setVisible(true);
 			this.setVisible(false);
-		} else {
-			if (!ispartie)
-				timer.start();
 		}
 	}
 
 	private void btnQuitterActionPerformed(java.awt.event.ActionEvent evt) {
-		timer.stop();
 		if (javax.swing.JOptionPane.showConfirmDialog(null,
 				"Etes-vous sur de vouloir quitter le jeu ? \nToute progression sera perdue.", "Quitter le jeu",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			saFrmAccueil.dispose();
 			this.dispose();
-		} else {
-			if (!ispartie)
-				timer.start();
 		}
 	}
 
 	private void btnRejouerActionPerformed(java.awt.event.ActionEvent evt) {
-		timer.stop();
 		if (javax.swing.JOptionPane.showConfirmDialog(null,
 				"Etes-vous sur de vouloir recommencer la partie ? \nLa progression de la partie en cours sera perdue.",
 				"Recommencer la partie", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			if (ispartie) {
 				saPartie.initialiserPartieManu();
-			} else {
-				timer.start();
 			}
-		} else {
-			if (!ispartie)
-				timer.start();
 		}
 	}
 
@@ -343,13 +317,21 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	public void keyPressed(KeyEvent e) {
 		if (ispartie) {
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				System.out.println("before down");
 				saGrille.deplacerTuiles("bas");
+				System.out.println("after");
 			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+				System.out.println("before up");
 				saGrille.deplacerTuiles("haut");
+				System.out.println("after");
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				System.out.println("before left");
 				saGrille.deplacerTuiles("gauche");
+				System.out.println("after");
 			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				System.out.println("before right");
 				saGrille.deplacerTuiles("droite");
+				System.out.println("after");
 			}
 			this.ajoutDeuxHasard();
 		}

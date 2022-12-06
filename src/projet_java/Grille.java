@@ -16,6 +16,22 @@ public class Grille {
 		this.initialiser();
 	}
 
+	public Tuile getTuile(int x, int y) {
+		return grille[x][y];
+	}
+
+	public int getTaille() {
+		return this.taille;
+	}
+
+	public void setSaPartie(Partie p) {
+		saPartie = p;
+	}
+
+	public Partie getSaPartie() {
+		return saPartie;
+	}
+
 	public void setSaForme(FrmJeu f) {
 		saForme = f;
 	}
@@ -56,10 +72,11 @@ public class Grille {
 		int Min = 0;
 		int valueToSet;
 
-		// si la liste est vide, alors on renvoie false pour indiquer à la fonction
-		// appelante que la partie est terminée.
+		// si la liste est vide, alors on vérifie qu'aucun mouvement ne soit disponible.
+		// Dans ce cas, on renverrait false. Sinon, on renverrait true pour permettre à
+		// la partie de continuer.
 		if (listeI.isEmpty()) {
-			return false;
+			return anyMovesLeft();
 		}
 
 		if (Math.random() > 0.7) {
@@ -72,20 +89,38 @@ public class Grille {
 		return true;
 	}
 
-	public Tuile getTuile(int x, int y) {
-		return grille[x][y];
-	}
-
-	public int getTaille() {
-		return this.taille;
-	}
-
-	public void setSaPartie(Partie p) {
-		saPartie = p;
-	}
-
-	public Partie getSaPartie() {
-		return saPartie;
+	public boolean anyMovesLeft() {
+		Tuile temp;
+		for (int i = 0; i < taille; i++) {
+			for (int j = 0; j < taille; j++) {
+				temp = grille[i][j];
+				if (j > 0) {
+					temp.checkIfDeplacable(i, j - 1, "gauche");
+					if (temp.getEstDeplacable()) {
+						return true;
+					}
+				}
+				if (j < taille - 1) {
+					temp.checkIfDeplacable(i, j + 1, "droite");
+					if (temp.getEstDeplacable()) {
+						return true;
+					}
+				}
+				if (i > 0) {
+					temp.checkIfDeplacable(i - 1, j, "haut");
+					if (temp.getEstDeplacable()) {
+						return true;
+					}
+				}
+				if (j < taille - 1) {
+					temp.checkIfDeplacable(i + 1, j, "bas");
+					if (temp.getEstDeplacable()) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	public void initialiser() { // initialise la grille et la remplie de tuiles avec pour valeur 0
@@ -140,6 +175,7 @@ public class Grille {
 			if (direction == "gauche" || direction == "haut") {
 				for (int i = 0; i < taille; i++) {
 					for (int j = 0; j < taille; j++) {
+						System.out.println("in deplacerTuiles");
 						this.grille[i][j].deplacer(direction);
 					}
 				}

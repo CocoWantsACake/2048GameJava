@@ -52,6 +52,7 @@ public class Tuile {
 	}
 
 	public void checkIfDeplacable(int positionI_OK, int positionJ_OK, String direction) {
+		System.out.println("check if deplacable " + direction);
 		if (!estAuBord(direction)) {
 			int val = grille.getTuile(positionI_OK, positionJ_OK).getValeur();
 
@@ -148,7 +149,6 @@ public class Tuile {
 		boolean retour = false;
 
 		switch (direction) {
-
 		case "gauche":
 			retour = positionJ == 0;
 			break;
