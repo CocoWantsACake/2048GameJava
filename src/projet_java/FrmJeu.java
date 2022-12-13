@@ -224,8 +224,6 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		}
 	}
 
-	static int cont = 0;
-
 	public void ajoutDeuxHasard() {
 		if (!saGrille.ajoutDeuxHasard()) {
 			if (saPartie.getEstGagnee()) {
@@ -241,12 +239,10 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 				saFrmAccueil.setScoreMax(saPartie.getScoreCourant());
 				saFrmAccueil.setMeilleurScore();
 			}
-			saPartie.setEstPerdue(true);
 			saPartie.setScoreCourant(0);
 			saFrmAccueil.setVisible(true);
 			setVisible(false);
 		}
-		cont++;
 		this.mettreAJour();
 	}
 
@@ -318,23 +314,11 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 	public void actionPerformed(ActionEvent e) {
 	}
 
-	public void setSaFrmAccueil(FrmAccueil fA) {
-		saFrmAccueil = fA;
-	}
-
 	public void setIspartie(Boolean b) {
 		ispartie = b;
 	}
 
-	public boolean getIspartie() {
-		return ispartie;
-	}
-
 	public Partie getSaPartie() {
 		return saPartie;
-	}
-
-	public Grille getSaGrille() {
-		return saGrille;
 	}
 }

@@ -137,22 +137,6 @@ public class Tuile {
 		return "" + valeur;
 	}
 
-	public void setPositionI(int positionI) {
-		this.positionI = positionI;
-	}
-
-	public int getPositionI() {
-		return positionI;
-	}
-
-	public void setPositionJ(int positionJ) {
-		this.positionJ = positionJ;
-	}
-
-	public int getPositionJ() {
-		return positionJ;
-	}
-
 	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}

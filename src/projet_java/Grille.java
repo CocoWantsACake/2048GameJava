@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 public class Grille {
 	/*
-	 * A l'écran, la tuile la plus en haut à droite a la coordonnée i=0 et j=3 A
+	 * A l'écran, la tuile la plus en haut à droite a la coordonnée i=0 et j=3
 	 * l'inverse, la tuile la plus en haut à gauche aura la coordonnée i=0 et j=0
 	 */
 	private int taille;
 	private Tuile[][] grille;
 	private Partie saPartie;
-	private FrmJeu saForme;
 
 	public Grille(int taille) {
 		super();
@@ -26,16 +25,6 @@ public class Grille {
 				grille[i][j].setValeur(0);
 			}
 		}
-	}
-
-	public void initialiserGrille() {
-		for (int i = 0; i < this.taille; i++) {
-			for (int j = 0; j < this.taille; j++) {
-				this.grille[i][j].setValeur(0);
-			}
-		}
-		this.ajoutDeuxHasard();
-		saPartie.setScoreCourant(0);
 	}
 
 	public boolean ajoutDeuxHasard() {
@@ -63,9 +52,8 @@ public class Grille {
 		return true;
 	}
 
-	// Vérifie si la grille peut être modifiée dans n'importe quelle direction.
-	// Utilisé pour vérifier simplement, lorsque la grille est entièrement remplie,
-	// si il reste des combinaisons possibles.
+	// Vérifie si la grille peut être modifiée dans n'importe quelle direction. Utilisé pour vérifier simplement,
+	// lorsque la grille est entièrement remplie, s'il reste des combinaisons possibles.
 	public boolean grilleModifiableAllDir() {
 		for (int i = 0; i < this.taille; i++) {
 			for (int j = 0; j < this.taille; j++) {
@@ -165,14 +153,6 @@ public class Grille {
 
 	public Partie getSaPartie() {
 		return saPartie;
-	}
-
-	public void setSaForme(FrmJeu f) {
-		saForme = f;
-	}
-
-	public FrmJeu getSaForme() {
-		return saForme;
 	}
 
 	public void setGrille(int x, int y, int valeur) {

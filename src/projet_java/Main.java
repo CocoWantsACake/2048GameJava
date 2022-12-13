@@ -14,7 +14,6 @@ public class Main {
 		fenetreJ.setDefaultCloseOperation(FrmJeu.EXIT_ON_CLOSE);
 		fenetreA.setSaFrmJeu(fenetreJ);
 
-		g.setSaForme(fenetreJ);
 		p.setSaForme(fenetreJ);
 	}
 }
