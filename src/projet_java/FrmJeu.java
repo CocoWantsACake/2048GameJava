@@ -228,7 +228,7 @@ public class FrmJeu extends javax.swing.JFrame implements KeyListener, ActionLis
 		if (!saGrille.ajoutDeuxHasard()) {
 			if (saPartie.getEstGagnee()) {
 				javax.swing.JOptionPane.showMessageDialog(null,
-						"Vous ne pouvez plus deplacer de tuiles\nVous allez etre redirige vers l'accueil",
+						"Vous avez gagné, mais ne pouvez plus deplacer de tuiles\nVous allez etre redirige vers l'accueil",
 						"Fin de la partie", JOptionPane.OK_OPTION);
 			} else {
 				javax.swing.JOptionPane.showMessageDialog(null,

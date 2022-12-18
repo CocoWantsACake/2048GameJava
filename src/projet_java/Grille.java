@@ -2,6 +2,8 @@ package projet_java;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Grille {
 	/*
 	 * A l'écran, la tuile la plus en haut à droite a la coordonnée i=0 et j=3
@@ -10,6 +12,7 @@ public class Grille {
 	private int taille;
 	private Tuile[][] grille;
 	private Partie saPartie;
+	private int first = 0;
 
 	public Grille(int taille) {
 		super();
@@ -48,12 +51,19 @@ public class Grille {
 
 		valueToSet = Math.random() > 0.7 ? 2 : 4;
 		int nbAleatoire = (int) (Math.random() * (Max - Min));
+		// TO REMOVE
+		if (this.first < 2) {
+			valueToSet = 1024;
+			this.first = this.first + 1;
+		}
 		this.grille[listeI.get(nbAleatoire)][listeJ.get(nbAleatoire)].setValeur(valueToSet);
 		return true;
 	}
 
-	// Vérifie si la grille peut être modifiée dans n'importe quelle direction. Utilisé pour vérifier simplement,
-	// lorsque la grille est entièrement remplie, s'il reste des combinaisons possibles.
+	// Vérifie si la grille peut être modifiée dans n'importe quelle direction.
+	// Utilisé pour vérifier simplement,
+	// lorsque la grille est entièrement remplie, s'il reste des combinaisons
+	// possibles.
 	public boolean grilleModifiableAllDir() {
 		for (int i = 0; i < this.taille; i++) {
 			for (int j = 0; j < this.taille; j++) {
@@ -134,8 +144,7 @@ public class Grille {
 			}
 		}
 		if (saPartie.getEstGagnee()) {
-			System.out.println(
-					"Vous avez atteint la tuile 2048 !\nVous avez gagne !\nContinuez pour obtenir le meilleur score possible !");
+			javax.swing.JOptionPane.showMessageDialog(null,"Vous avez gagné! Continuez de jouer pour améliorer votre score!", "", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
