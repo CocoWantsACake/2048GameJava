@@ -12,7 +12,6 @@ public class Grille {
 	private int taille;
 	private Tuile[][] grille;
 	private Partie saPartie;
-	private int first = 0;
 
 	public Grille(int taille) {
 		super();
@@ -51,11 +50,6 @@ public class Grille {
 
 		valueToSet = Math.random() > 0.7 ? 2 : 4;
 		int nbAleatoire = (int) (Math.random() * (Max - Min));
-		// TO REMOVE
-		if (this.first < 2) {
-			valueToSet = 1024;
-			this.first = this.first + 1;
-		}
 		this.grille[listeI.get(nbAleatoire)][listeJ.get(nbAleatoire)].setValeur(valueToSet);
 		return true;
 	}
